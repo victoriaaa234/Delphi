@@ -1,10 +1,12 @@
 from clarifai.rest import Image as ClImage
 from clarifai.rest import ClarifaiApp
-
+from pytube import YouTube
 
 NUM_THRESHOLD = 20 # Numeric threshold for how many results to include.
 PROB_THRESHOLD = 0.8 # Probabilistic threshold for lower limit of confidence rate of image
 TEST_IMAGE = 'test.png'
+VID_DIR = '/Users/jusunglee/Work/TAMU/CSCE315/CSCE_315_TeamProject_3/Videos/'
+
 
 def setup_model(): # constructs boiler plate to get model ready
     f = open('TOKENS','r')
@@ -31,4 +33,18 @@ def process_image(filename):
             print(name + ' : ' + str(value))
     return
 
-process_image(TEST_IMAGE)
+def downloadYoutubeVideo(url):
+    id_prec = 'watch?v='
+    file_type = 'mp4'
+    vid_quality = '720p'
+    yt = YouTube(url)
+    yt_ID_index = url.find(id_prec)
+    yt_ID = url[yt_ID_index + len(id_prec):]
+    yt.set_filename = yt_ID
+    video = yt.get(file_type, vid_quality)
+    video.download(VID_DIR)
+    return
+
+TEST_URL = 'https://www.youtube.com/watch?v=W6O009NoWDQ'
+downloadYoutubeVideo(TEST_URL)
+print('Done!')
