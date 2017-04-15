@@ -16,3 +16,40 @@
 input[type=text]:focus {
     width: 40%;
 }
+
+.button {
+    padding-top: 50px;
+}
+
+.demo-card-wide.mdl-card {
+    width: 512px;
+}
+
+.demo-card-wide > .mdl-card__title {
+    color: #fff;
+    height: 176px;
+    background: url('../waterfall.jpg') center / cover;
+}
+
+.demo-card-wide > .mdl-card__menu {
+    color: #fff;
+}
+
+.inner-grid {
+    padding-left: 50px;
+}
+
+.card {
+    padding-left:375px;
+}
+
+.options {
+    padding-top: 20px;
+    display:inline-flex;
+    width:600px;
+}
+
+.mdl-dialog {
+    width: 498px;
+    height: 264px;
+}
