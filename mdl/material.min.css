@@ -23,6 +23,8 @@ input[type=text]:focus {
 
 .demo-card-wide.mdl-card {
     width: 512px;
+    margin-left: -14px;
+    margin-top: -14px;
 }
 
 .demo-card-wide > .mdl-card__title {
@@ -50,6 +52,6 @@ input[type=text]:focus {
 }
 
 .mdl-dialog {
-    width: 498px;
-    height: 264px;
+    width: 484px;
+    height: 250px;
 }
