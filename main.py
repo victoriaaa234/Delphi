@@ -60,7 +60,6 @@ def main(url, search_term):
         image_path = get_frame(file_name,formatted_time)
         image_list.append(image_path)
     
-    time.sleep(5)
     for image in image_list:
         print(image)
         process_image(image)
