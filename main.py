@@ -30,14 +30,6 @@ def test_get_frame():
 def get_frames_of_youtube_video(url):
     yt_file_name, yt_duration = download_youtube_video(url)
 
-
-    
-    
-# video = input('Enter youtube URL')
-# query = input('Enter query term')
-# test_youtube_downloader()
-#test_get_frame()
-
 def main(url, search_term):
     file_name, seconds = download_youtube_video(url)
     image_list = []
