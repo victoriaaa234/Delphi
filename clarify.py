@@ -16,16 +16,19 @@ def setup_model(): # constructs boiler plate to get model ready
     model = app.models.get('general-v1.3')
     return model
 
+
 def process_image(filename):
     model = setup_model()
     image = ClImage(file_obj=open(filename, 'rb'))
     json_dict = model.predict([image])
     results = json_dict['outputs'][0]['data']['concepts']
+    return_list = []
     for i in range(0,NUM_THRESHOLD):
         name = results[i]['name']
+        return_list.append(name)
         value = results[i]['value']
         if value < PROB_THRESHOLD:
             break
-        else:
-            print(name + ' : ' + str(value))
-    return
+        # else:
+        #     print(name + ' : ' + str(value))
+    return return_list

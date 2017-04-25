@@ -42,8 +42,6 @@ def main(url, search_term):
     file_name, seconds = download_youtube_video(url)
     image_list = []
     for second in range(int(seconds)):
-        if second == 0:
-            second = 0.5
         minutes = int(second / 60)
         hours = int(minutes / 60)
         hours_str = ''
@@ -56,14 +54,19 @@ def main(url, search_term):
         if hours < 10:
             hours_str = '0' + str(hours)
         formatted_time = hours_str + ':' + minutes_str + ':' + seconds_str
-        print(formatted_time)
+        #print(formatted_time)
         image_path = get_frame(file_name,formatted_time)
         image_list.append(image_path)
-    
+    time.sleep(5)
     for image in image_list:
-        print(image)
-        process_image(image)
+        #print(image)
+        results = process_image(image)
+        if search_term.lower() in results:
+            index_ = image.rfind('.mp4')
+            duration = image[index_ + 4:]
+            duration = image[:image.rfind('.png')]
+
+            print('Found ' + search_term.lower() + ' at duration: ' + duration)
     print('dONE')
 
-main(TEST_URL, 'Beard')
-# test_clarifai()
+main(TEST_URL, 'Flame')
