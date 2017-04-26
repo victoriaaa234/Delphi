@@ -43,32 +43,6 @@
             <div class="mdl-layout-spacer"></div>
         </div>
 
-        <dialog class="mdl-dialog">
-            <div class="demo-card-wide mdl-card mdl-shadow--2dp">
-                <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">Welcome</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                    The Oracle of Youtube is a place where you can...
-                </div>
-                <div class="mdl-dialog__actions">
-                    <button id="get-started" type="button" class="mdl-button close">Get Started</button>
-                </div>
-            </div>
-        </dialog>
-
-        <script>
-            var dialog = document.querySelector('dialog');
-            var showDialogButton = document.querySelector('#get-started');
-            if (! dialog.showModal) {
-                dialogPolyfill.registerDialog(dialog);
-            }
-            dialog.showModal();
-            showDialogButton.addEventListener('click', function() {
-                dialog.close();
-            });
-        </script>
-
         <script>
         /* When the user clicks on the button, 
         toggle between hiding and showing the dropdown content */
