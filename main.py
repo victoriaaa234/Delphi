@@ -49,16 +49,25 @@ def main(url, search_term):
         #print(formatted_time)
         image_path = get_frame(file_name,formatted_time)
         image_list.append(image_path)
-    time.sleep(5)
+    # time.sleep(5)
+    results_list = []
     for image in image_list:
-        #print(image)
+        print(image)
         results = process_image(image)
+        results_list.append(results)
         if search_term.lower() in results:
             index_ = image.rfind('.mp4')
             duration = image[index_ + 4:]
             duration = image[:image.rfind('.png')]
-
             print('Found ' + search_term.lower() + ' at duration: ' + duration)
     print('dONE')
+    return_list = [range(int(seconds), results_list, image_list)]
+    return return_list
 
-main(TEST_URL, 'Flame')
+main('https://www.youtube.com/watch?v=668nUCeBHyY', 'Flame')
+
+#https://www.youtube.com/watch?v=BfXSRQtilNw GUARDIANS OF THE GALAXY | WOMAN or FLAME
+#https://www.youtube.com/watch?v=2BDyeARyIkw STAR WARS | WOMAN
+#https://www.youtube.com/watch?v=9ec5XKAzKfk WONDER WOMAN
+#https://www.youtube.com/watch?v=ql7uY36-LwA PUPPY MONKEY BABY
+#https://www.youtube.com/watch?v=668nUCeBHyY nature
