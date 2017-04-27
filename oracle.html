@@ -1,79 +1,186 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Delphi</title>
-        <link rel="stylesheet" href="./mdl/material.min.css">
-        <script src="./mdl/material.min.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    </head>
+<html lang="en">
 
-    <body>
-        <h2>The Oracle of Youtube</h2>
-        <div class="mdl-grid">
-            <div class="video" style="margin-left:10%">
-                <iframe width="700" height = "400" style="margin-left:0px"; src="https://www.youtube.com/embed/zB4I68XVPzQ">
-                </iframe>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Delphi</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="lib/device-mockups/device-mockups.min.css">
+
+    <!-- Theme CSS -->
+    <!-- <link href="css/new-age.min.css" rel="stylesheet"> -->
+    <link href="css/new-age.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Delphi: The Oracle of YouTube</a>
             </div>
-            <div class="inner-grid">
-                <form action="#" style="margin-left: 20%">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="search"/>
-                        <label class="mdl-textfield__label" for="search">Search...</label>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="home.html">Search Another Video</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <!-- change -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="header-content">
+                        <div class="header-content-inner">
+                            <div class="video">
+                                <iframe width="700" height = "400" style="margin-left:0px"; src="https://www.youtube.com/embed/zB4I68XVPzQ">
+                                </iframe>
+                                <div class="header-content-keyword">
+                                    <form class="navbar-form" role="search">
+                                        <div class="input-group add-on">
+                                            <input class="form-control" placeholder="Enter keywords..." name="srch-term" id="srch-term" type="text">
+                                            <div class="input-group-btn">
+                                                <!-- NOTE(Victoria): If user types: "censor" at the beginning of the search, we 
+                                                will cut the audio at those times". If not, we will display the times. -->
+                                                <button onclick="myFunction()" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <table id="search-table" style="display: none" class="table table-hover">
+                            <!-- NOTE(Victoria): Display the top 5 times -->
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Time</th>
+                                    <th>Probability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>
+                                        <a class="search-link" href="#">0:10</a>
+                                    </td>
+                                    <td>90.2%</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>
+                                        <a class="search-link" href="#">0:32</a>
+                                    </td>
+                                    <td>87.5%</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>
+                                        <a class="search-link" href="#">1:23</a>
+                                    </td>
+                                    <td>95.1%</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>
+                                        <a class="search-link" href="#">1:44</a>
+                                    </td>
+                                    <td>80.3%</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>
+                                        <a class="search-link" href="#">2:00</a>
+                                    </td>
+                                    <td>10.3%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <script>
+                            function myFunction() {
+                                document.getElementById("search-table").style.display = "table";
+
+                            }
+                        </script>
                     </div>
-                </form>
-                <div class="options">
-                    <div class="checkbox-row1" style="padding-left: 20%">
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox">
-                            <input type="checkbox" id="checkbox" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Censor</span>
-                        </label>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox1">
-                            <input type="checkbox" id="checkbox1" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Button2</span>
-                        </label>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox2">
-                            <input type="checkbox" id="checkbox2" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Button3</span>
-                        </label>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox3">
-                            <input type="checkbox" id="checkbox3" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Button4</span>
-                        </label>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox4">
-                            <input type="checkbox" id="checkbox4" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Button5</span>
-                        </label>
-                    </div>
-                    <div class="checkbox-row2">
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox5">
-                            <input type="checkbox" id="checkbox5" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Button6</span>
-                        </label>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox6">
-                            <input type="checkbox" id="checkbox6" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Button7</span>
-                        </label>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox7">
-                            <input type="checkbox" id="checkbox7" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Button8</span>
-                        </label>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox8">
-                            <input type="checkbox" id="checkbox8" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Button9</span>
-                        </label>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox10">
-                            <input type="checkbox" id="checkbox10" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Button10</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="button" style="padding-left: 225px">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                        Search
-                    </button>
                 </div>
             </div>
         </div>
-    </body>
+    </header>
+
+    <section id="contact" class="contact bg-primary">
+        <div class="container">
+            <h2>We <i class="fa fa-heart"></i> new friends!</h2>
+            <ul class="list-inline list-social">
+                <li class="social-twitter">
+                    <a target="_blank" href="https://www.twitter.com"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li class="social-facebook">
+                    <a target="_blank" href="https://www.facebook.com"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li class="social-google-plus">
+                    <a target="_blank" href="https://www.plus.google.com"><i class="fa fa-google-plus"></i></a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2016 Start Bootstrap. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="lib/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/new-age.min.js"></script>
+
+</body>
+
 </html>

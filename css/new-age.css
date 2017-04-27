@@ -16,6 +16,11 @@
   text-transform: uppercase;
   letter-spacing: 2px;
 }
+.table {
+  transform: translateY(90%) translateX(240%);
+  max-width: 50%;
+  max-height: 100%;
+}
 html,
 body {
   height: 100%;
@@ -33,6 +38,13 @@ a {
 a:hover,
 a:focus {
   color: #fcbd20;
+}
+.search-link {
+  color: #ffffff;
+}
+.search-link:hover,
+.search-link:focus {
+  color: #ff0000;
 }
 hr {
   max-width: 100px;
@@ -177,6 +189,11 @@ header .header-content .header-content-search {
   max-width: 500px;
   margin: 0 auto;
 }
+header .header-content .header-content-keyword {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
 header .header-content .header-content-inner h1 {
   margin-top: 0;
   margin-bottom: 30px;
@@ -218,6 +235,13 @@ header .device-container .screen img {
     position: absolute;
     top: 50%;
     transform: translateY(-400%) translateX(170%);
+  }
+  header .header-content .header-content-keyword {
+    max-width: none;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-420%) translateX(320%);
   }
   header .header-content .header-content-inner h1 {
     font-size: 35px;
