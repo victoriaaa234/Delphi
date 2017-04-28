@@ -39,7 +39,16 @@ a:hover,
 a:focus {
   color: #fcbd20;
 }
+.search-row {
+  color: #ffffff;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #52d5f5;
+}
 .search-link {
+  color: #ff0000;
+}
+.prob {
   color: #ffffff;
 }
 .search-link:hover,
