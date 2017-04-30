@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Delphi</title>
+		<link rel="stylesheet" href="./style.css">
+		<link rel="stylesheet" href="./mdl/material.min.css">
+		<script src="./mdl/material.min.js"></script>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	</head>
+	<body>
+		<h2 style="text-align:center">Welcome to The Oracle of Youtube</h2>
+		
+        <div class="mdl-grid" style="padding-top: 30px">
+            <div class="mdl-layout-spacer"></div>
+            <div class="mdl-cell mdl-cell--2-col">
+                <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="youtube-url"/>
+                        <label class="mdl-textfield__label" for="username">Enter a YouTube URL...</label>
+                    </div>
+                </form>
+
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--icon" style="margin-top:30px">
+                <i class="material-icons">search</i>
+            </button>
+            <div class="mdl-layout-spacer"></div>
+        </div>
+	<h4 style="text-align:center">Or</h4>
+        <div class="mdl-grid" style="padding-top: 30px">
+            <div class="mdl-layout-spacer"></div>
+            <div class="mdl-cell mdl-cell--2-col">
+                <div class="dropdown">
+                     <button onclick="myFunction()" class="dropbtn">Select a genre...</button>
+                     <div id="genreDropdown" class="dropdown-content">
+                         <a href="#">Link 1</a>
+                         <a href="#">Link 2</a>
+                         <a href="#">Link 3</a>
+                     </div>
+                 </div>
+            </div>
+            <div class="mdl-layout-spacer"></div>
+        </div>
+
+        <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("genreDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+        </script>
+
+	</body>
+</html>
