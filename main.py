@@ -5,12 +5,16 @@ from clarify import process_image
 from getframes import get_frame
 import os
 import time
+import os.path
+from pathlib import Path
+
 
 TEST_IMAGE = 'test.png'
 TEST_URL = 'https://www.youtube.com/watch?v=W6O009NoWDQ'
 TEST_VID_NAME = 'W6O009NoWDQ.mp4'
 TEST_VID_TIME = '00:00:03.435'
 FPS_FACTOR = 1 # FPS_FACTOR frames per second to send to clarifai
+
 
 def test_clarifai():
     process_image(TEST_IMAGE)
@@ -31,43 +35,79 @@ def get_frames_of_youtube_video(url):
     yt_file_name, yt_duration = download_youtube_video(url)
 
 def main(url, search_term):
-    file_name, seconds = download_youtube_video(url)
-    image_list = []
-    for second in range(int(seconds)):
-        minutes = int(second / 60)
-        hours = int(minutes / 60)
-        hours_str = ''
-        minutes_str = ''
-        seconds_str = str(second % 60)
-        if seconds % 60 < 10:
-            seconds_str = '0' + seconds_str
-        if minutes < 10:
-            minutes_str = '0' + str(minutes)
-        if hours < 10:
-            hours_str = '0' + str(hours)
-        formatted_time = hours_str + ':' + minutes_str + ':' + seconds_str
-        #print(formatted_time)
-        image_path = get_frame(file_name,formatted_time)
-        image_list.append(image_path)
-    # time.sleep(5)
-    results_list = []
-    for image in image_list:
-        print(image)
-        results = process_image(image)
-        results_list.append(results)
-        if search_term.lower() in results:
-            index_ = image.rfind('.mp4')
-            duration = image[index_ + 4:]
-            duration = image[:image.rfind('.png')]
-            print('Found ' + search_term.lower() + ' at duration: ' + duration)
-    print('dONE')
-    return_list = [range(int(seconds), results_list, image_list)]
-    return return_list
+    MAIN_DIR = 'Videos/'
+    file_type = 'mp4'
+    yt_id = url.rfind('=')
+    yt_ID = url[yt_id+1:]
+    vid_path = MAIN_DIR + yt_ID + '/' + yt_ID + '.' + file_type
+    vid_file = Path(vid_path)
+    print(vid_path)
+    if vid_file.is_file():
+        print('Already downloaded! Skipping download and function calls.')
+        log = open(MAIN_DIR + yt_ID + '/' + 'results.csv','r')
+        i = 0
+        results_list = []
+        with log as f:
+            for line in f:
+                num = int(line[:line.find(',')])
+                if search_term.lower() in line:
+                    results_list.append(num)
+                i += 1
+        return results_list
+    else:
+        file_name, seconds = download_youtube_video(url)
+        image_list = []
+        for second in range(int(seconds)):
+            minutes = int(second / 60)
+            hours = int(minutes / 60)
+            hours_str = str(hours)
+            minutes_str = str(minutes)
+            seconds_str = str(second % 60)
+            print(second % 60)
+            if second % 60 < 10:
+                print('uip')
+                seconds_str = '0' + str(second % 60)
+            if minutes < 10:
+                minutes_str = '0' + str(minutes)
+            if hours < 10:
+                hours_str = '0' + str(hours)
+            print('min ' + minutes_str)
+            print('hour ' + hours_str)
+            print('seconds ' + seconds_str)
+            formatted_time = hours_str + ':' + minutes_str + ':' + seconds_str
+            #print(formatted_time)
+            image_path = get_frame(file_name,formatted_time)
+            image_list.append(image_path)
+        # time.sleep(5)
 
-main('https://www.youtube.com/watch?v=668nUCeBHyY', 'Flame')
+        results_list = []
+        file_ = open(MAIN_DIR + yt_ID + '/' + 'results.csv','w+')
+        i = 0
+        for image in image_list:
+            print(image)
+            results = process_image(image)
+            file_.write(str(i)+',')
+            for result in results:
+                file_.write(result + ',')
+            file_.write('\n')
+            i += 1
+            if search_term.lower() in results:
+                index_ = image.rfind('.mp4')
+                duration = image[index_ + 4:]
+                duration = image[:image.rfind('.png')]
+                print('Found ' + search_term.lower() + ' at duration: ' + duration)
+                results_list.append(i)
+        print('dONE')
+        return results_list
+
+#print(main('https://www.youtube.com/watch?v=QbmDpEhAp48', 'weapon'))
 
 #https://www.youtube.com/watch?v=BfXSRQtilNw GUARDIANS OF THE GALAXY | WOMAN or FLAME
 #https://www.youtube.com/watch?v=2BDyeARyIkw STAR WARS | WOMAN
 #https://www.youtube.com/watch?v=9ec5XKAzKfk WONDER WOMAN
 #https://www.youtube.com/watch?v=ql7uY36-LwA PUPPY MONKEY BABY
-#https://www.youtube.com/watch?v=668nUCeBHyY nature
+#https://www.youtube.com/watch?v=668nUCeBHyY city
+
+#https://www.youtube.com/watch?v=eDd3yWEiNLY explosion | man
+#https://www.youtube.com/watch?v=yN3kD1REAas monkey/
+#https://www.youtube.com/watch?v=AIhJvXPZH6U iron man "explosion"
