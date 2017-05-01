@@ -19,7 +19,7 @@ def get_frame(file_name, time_):
     final_dir = MAIN_VID_DIR + file_name_no_ending + '/' + file_name
     print(final_dir)
 
-    command = [ FFMPEG_BIN,
+    command = [ FFMPEG_BIN,'-n',
             '-i', final_dir,
             '-ss', time_,
             '-vframes', '1',
