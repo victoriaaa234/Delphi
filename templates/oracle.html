@@ -35,8 +35,7 @@
 
     <!-- Theme CSS -->
     <!-- <link href="css/new-age.min.css" rel="stylesheet"> -->
-    <link href="{{ url_for('static',filename='css/new-age.css') }}"
-    " rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/new-age.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -46,114 +45,88 @@
 
 </head>
 
-<body id="page-top">
-
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-            </button>
-            <a class="navbar-brand page-scroll" href="#page-top">Delphi: The Oracle of YouTube</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="page-scroll" href="home.html">Search Another Video</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
-<!-- change -->
 <header>
     <div class="container">
-        <div class="row">
-            <!--<div class="col-sm-7">-->
-            <div class="header-content">
-                <div class="row">
-                    <div class="header-content-keyword">
-                        <div id="content">
-                            <form method="post" action="/getQuery">
-                                <label for="query">Please enter your search query:</label>
-                                <input type="text" name="query"/><br/> <input type="submit"/>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="header-content-inner">
-                        <div class="video">
-                            <iframe width="700" height="400" style="margin-left:0px" ;
-                                    src="https://www.youtube.com/embed/zB4I68XVPzQ">
-                            </iframe>
+        <!--<div class="col-sm-7">-->
+        <div id="content">
+            <!-- style="display: none" -->
 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- style="display: none" -->
-                        <table id="search-table" class="table table-hover table-bordered">
-                            <!-- NOTE(Victoria): Display the top 5 times -->
-                            <!-- NOTE(Victoria): "?t=_s" or "?t=_m_s" -->
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Time</th>
-                                <th>Probability</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th class="search-row" scope="row"><b>1</b></th>
-                                <td>
-                                    <a class="search-link" href="#"><b>0:10</b></a>
-                                </td>
-                                <td class="prob"><b>90.2%</b></td>
-                            </tr>
-                            <tr>
-                                <th class="search-row" scope="row"><b>2</b></th>
-                                <td>
-                                    <a class="search-link" href="#"><b>0:32</b></a>
-                                </td>
-                                <td class="prob"><b>87.5%</b></td>
-                            </tr>
-                            <tr>
-                                <th class="search-row" scope="row"><b>3</b></th>
-                                <td>
-                                    <a class="search-link" href="#"><b>1:23</b></a>
-                                </td>
-                                <td class="prob"><b>95.1%</b></td>
-                            </tr>
-                            <tr>
-                                <th class="search-row" scope="row"><b>4</b></th>
-                                <td>
-                                    <a class="search-link" href="#"><b>1:44</b></a>
-                                </td>
-                                <td class="prob"><b>80.3%</b></td>
-                            </tr>
-                            <tr>
-                                <th class="search-row" scope="row"><b>5</b></th>
-                                <td>
-                                    <a class="search-link" href="#"><b>2:00</b></a>
-                                </td>
-                                <td class="prob"><b>10.3%</b></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!--</div>-->
-            </div>
+
         </div>
+        <!--<div class="row">-->
+
+        <div class="video">
+            <iframe id="myVideo" width="560" height="315" src={{url}}
+                    frameborder="0"
+                    allowfullscreen></iframe>
+
+        </div>
+    </div>
+    <script>
+        //        $(document).ready(function () {
+        //            $('#play-video').on('click', function (ev) {
+        //                $("#myVideo")[0].src += ("#t=" + )//"&autoplay=1";
+        //                ev.preventDefault();
+        //            });
+        //        });
+        document.body.onclick = function (e) {
+            console.log('smash');
+            e = window.event ? event.srcElement : e.target;
+            if (e.className && e.className.indexOf('time') != -1) alert(e.value);
+            else console.log('lemme smash' + e.value);
+        }
+        function addRow(time, value) {
+            var table = document.getElementById("search-table");
+            var row = table.insertRow(0);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = '<a id="play-video" href="#">' + time + '</a><br/>';
+            cell2.innerHTML = "probability";
+        }
+        function sendData() {
+            var x = document.getElementById("myForm");
+            console.log(x.value);
+            $.ajax({
+                type: "POST",
+                url: "/getQuery",
+                data: {
+                    data: x.value,
+                    vidid: '{{vidid}}'
+                }
+            }).done(function (o) {
+                alert('Sent!')
+                rx = o;
+                console.log(rx);
+                for (a = 0; a < rx.length; a++) {
+                    addRow(rx[a][0], rx[a][1]);
+                }
+            });
+        }
+    </script>
+    <div class="input-group">
+        <input type="text" id="myForm" class="form-control" value={this.value} placeholder="Search for...">
+        <span class="input-group-btn">
+            <button onclick="return sendData()" class="btn btn-secondary" type="button">Go!</button>
+        </span>
+    </div>
+    <table id="search-table" class="table table-hover table-bordered" style="margin-top: 100px">
+        <!-- NOTE(Victoria): Display the top 5 times -->
+        <!-- NOTE(Victoria): "?t=_s" or "?t=_m_s" -->
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Time</th>
+            <th>Probability</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <!--</div>-->
+    </div>
+    </div>
+    </div>
 </header>
 
 <section id="contact" class="contact bg-primary">

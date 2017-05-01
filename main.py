@@ -51,7 +51,13 @@ def main(url, search_term):
             for line in f:
                 num = int(line[:line.find(',')])
                 if search_term.lower() in line:
-                    results_list.append(num)
+                    _index = line.index(search_term.lower())
+                    line = line[_index:]
+                    line = line[line.index(',')+1:]
+                    print(line)
+                    line = line[:line.index('"')]
+                    val = int(line)
+                    results_list.append([num,val])
                 i += 1
         return results_list
     else:
@@ -88,19 +94,17 @@ def main(url, search_term):
             results = process_image(image)
             file_.write(str(i)+',')
             for result in results:
-                file_.write(result + ',')
+                file_.write('"' + str(result[0]) + ',' + str(result[1]) + '",')
             file_.write('\n')
             i += 1
-            if search_term.lower() in results:
-                index_ = image.rfind('.mp4')
-                duration = image[index_ + 4:]
-                duration = image[:image.rfind('.png')]
-                print('Found ' + search_term.lower() + ' at duration: ' + duration)
-                results_list.append(i)
+            first_col = [x[0] for x in results]
+            if search_term.lower() in first_col:
+                index_ = first_col.index(search_term.lower())
+                results_list.append(results[index_])
         print('dONE')
         return results_list
 
-#print(main('https://www.youtube.com/watch?v=QbmDpEhAp48', 'weapon'))
+print(main('https://www.youtube.com/watch?v=QbmDpEhAp48', 'weapon'))
 
 #https://www.youtube.com/watch?v=BfXSRQtilNw GUARDIANS OF THE GALAXY | WOMAN or FLAME
 #https://www.youtube.com/watch?v=2BDyeARyIkw STAR WARS | WOMAN

@@ -26,8 +26,8 @@ def process_image(filename):
     for i in range(0,NUM_THRESHOLD):
         name = results[i]['name']
         value = results[i]['value']
-        # return_list.append([name,value])
-        return_list.append(name)
+        return_list.append([name,value])
+        # return_list.append(name)
         if value < PROB_THRESHOLD:
             break
         else:

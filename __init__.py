@@ -3,7 +3,10 @@ from flask import render_template
 from flask import request
 app = Flask(__name__)
 from main import main
+from flask import jsonify
 
+base = 'https://www.youtube.com/embed/'
+true_base = 'https://www.youtube.com/watch?v='
 @app.route('/')
 def hello_world():
     return 'Hello World!'
@@ -12,17 +15,22 @@ def hello_world():
 def about():
     return 'about us'
 
-@app.route('/o', methods=['GET'])
-def o():
-    return render_template('o.html')
+@app.route('/oracle')
+@app.route('/oracle/<vidid>')
+def oracle(vidid=None):
+    return render_template('oracle.html', url=base+vidid, vidid=vidid, results=None)
 
 @app.route('/getQuery', methods=['POST'])
 def getQuery():
-    print('this sohludnt be aegergu ning')
-    query = request.form['query']
-    print(query)
-    results = main('https://www.youtube.com/watch?v=zB4I68XVPzQ',query)
-    return results
+    data = request.form['data']
+    url_ = true_base + request.form['vidid']
+    vidid = request.form['vidid']
+    print('data: ' + data)
+    print('url: ' + url_)
+    results = main(url_,data)
+    print(results)
+    return jsonify(results)
+    # return render_template('oracle.html', url=base + vidid, vidid=vidid, results=results)
 
 
 if __name__ == '__main__':
