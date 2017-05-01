@@ -28,8 +28,9 @@ def getQuery():
     print('data: ' + data)
     print('url: ' + url_)
     results = main(url_,data)
-    print(results)
-    return jsonify(results)
+    results_sorted = sorted(results, key=lambda x: x[1])
+    print(results_sorted)
+    return jsonify(results_sorted)
     # return render_template('oracle.html', url=base + vidid, vidid=vidid, results=results)
 
 
