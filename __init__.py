@@ -4,6 +4,7 @@ from flask import request
 app = Flask(__name__)
 from main import main
 from flask import jsonify
+from search import youtube_search
 
 base = 'https://www.youtube.com/embed/'
 true_base = 'https://www.youtube.com/watch?v='
@@ -19,6 +20,17 @@ def about():
 @app.route('/oracle/<vidid>')
 def oracle(vidid=None):
     return render_template('oracle.html', url=base+vidid, vidid=vidid, results=None)
+
+@app.route('/home')
+@app.route('/home/<query>')
+def search(query=None):
+    return render_template('home.html')
+
+@app.route('/getVideos', methods=['POST'])
+def getVideos():
+    query = request.form['query']
+    titles, vidids = youtube_search(query);
+    return jsonify([titles, vidids])
 
 @app.route('/getQuery', methods=['POST'])
 def getQuery():
