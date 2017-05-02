@@ -107,19 +107,23 @@
         //            if (e.className && e.className.indexOf('time') != -1) alert(e.value);
         //            else console.log('lemme smash' + e.value);
         //        }
-        function clickTime(identifier){
+        function clickTime(identifier) {
             console.log($(identifier).data('id'));
             player.seekTo($(identifier).data('id'));
         }
-        function addRow(time, value) {
+        function addRow(query, time, value) {
             var table = document.getElementById("search-table");
+
             var row = table.insertRow(0);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
+            var cell0 = row.insertCell(0);
+            var cell1 = row.insertCell(1);
+            var cell2 = row.insertCell(2);
             console.log(time);
+            cell0.innerHTML = query;
             cell1.innerHTML = '<a id="play-video" data-id=' + time + ' onclick="clickTime(this);" href="#">' + time + '</a><br/>';
             cell2.innerHTML = value;
         }
+
         function sendData() {
             var x = document.getElementById("myForm");
             console.log(x.value);
@@ -131,17 +135,27 @@
                     vidid: '{{vidid}}'
                 }
             }).done(function (o) {
-                alert('Sent!')
                 rx = o;
                 console.log(rx);
                 for (a = 0; a < rx.length; a++) {
-                    addRow(rx[a][0], rx[a][1]);
+                    addRow(rx[a][2], rx[a][0], rx[a][1]);
+
                 }
+
+                var table = document.getElementById("search-table");
+                var row1 = table.insertRow(0);
+                var cell31 = row1.insertCell(0);
+                var cell11 = row1.insertCell(1);
+                var cell21 = row1.insertCell(2);
+                cell11.innerHTML = "Time";
+                cell21.innerHTML = "Probability";
+                cell31.innerHTML = "Search Term";
+
             });
         }
     </script>
     <div class="input-group">
-        <input type="text" id="myForm" class="form-control" value={this.value} placeholder="Search for...">
+        <input type="text" id="myForm" class="form-control" value="" placeholder="Search for...">
         <span class="input-group-btn">
             <button onclick="return sendData()" class="btn btn-secondary" type="button">Go!</button>
         </span>
@@ -150,11 +164,6 @@
         <!-- NOTE(Victoria): Display the top 5 times -->
         <!-- NOTE(Victoria): "?t=_s" or "?t=_m_s" -->
         <thead>
-        <tr>
-            <th>#</th>
-            <th>Time</th>
-            <th>Probability</th>
-        </tr>
         </thead>
         <tbody>
 
