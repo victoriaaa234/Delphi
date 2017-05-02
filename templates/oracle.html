@@ -8,7 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 50px 0;
+        }
 
+        td {
+            padding: 10px 0;
+        }
+    </style>
     <title>Delphi</title>
     <!-- jQuery -->
     <script src="{{ url_for('static',filename='lib/jquery/jquery.min.js') }}"></script>
@@ -111,16 +120,15 @@
             console.log($(identifier).data('id'));
             player.seekTo($(identifier).data('id'));
         }
-        function addRow(query, time, value) {
+        function addRow(query, time, value, seconds) {
             var table = document.getElementById("search-table");
-
             var row = table.insertRow(0);
             var cell0 = row.insertCell(0);
             var cell1 = row.insertCell(1);
             var cell2 = row.insertCell(2);
             console.log(time);
             cell0.innerHTML = query;
-            cell1.innerHTML = '<a id="play-video" data-id=' + time + ' onclick="clickTime(this);" href="#">' + time + '</a><br/>';
+            cell1.innerHTML = '<a id="play-video" data-id=' + seconds + ' onclick="clickTime(this);" href="#">' + time + '</a><br/>';
             cell2.innerHTML = value;
         }
 
@@ -137,8 +145,45 @@
             }).done(function (o) {
                 rx = o;
                 console.log(rx);
+                var table = document.getElementById("search-table");
+                var row = table.insertRow(0);
+                var cell0 = row.insertCell(0);
+                var cell1 = row.insertCell(1);
+                var cell2 = row.insertCell(2);
                 for (a = 0; a < rx.length; a++) {
-                    addRow(rx[a][2], rx[a][0], rx[a][1]);
+                    var query_ = rx[a][2];
+                    var time__ = rx[a][0];
+                    var hours = Math.floor(time__ / 3600);
+                    var hours_;
+                    var minutes_;
+                    var seconds_;
+
+                    var minutes = Math.floor((time__ % 3600) / 60);
+                    var seconds = Math.floor(time__ % 3600 % 60);
+                    if (hours.toString().length == 1) {
+                        hours_ = "0" + hours.toString();
+                    }
+                    else {
+                        hours_ = hours.toString;
+                    }
+                    if (minutes.toString().length == 1) {
+
+                        minutes_ = "0" + minutes.toString();
+
+                    }
+                    else {
+                        minutes_ = minutes.toString();
+                    }
+                    if (seconds.toString().length == 1) {
+                        seconds_ = "0" + seconds.toString();
+
+                    }
+                    else {
+                        seconds_ = seconds.toString();
+                    }
+                    var time_ = hours_ + ":" + minutes_ + ":" + seconds_;
+                    var value_ = rx[a][1];
+                    addRow(query_, time_, value_, time__);
 
                 }
 
@@ -149,7 +194,7 @@
                 var cell21 = row1.insertCell(2);
                 cell11.innerHTML = "Time";
                 cell21.innerHTML = "Probability";
-                cell31.innerHTML = "Search Term";
+                cell31.innerHTML = "Term";
 
             });
         }
@@ -160,18 +205,17 @@
             <button onclick="return sendData()" class="btn btn-secondary" type="button">Go!</button>
         </span>
     </div>
-    <table id="search-table" class="table table-hover table-bordered" style="margin-top: 100px">
-        <!-- NOTE(Victoria): Display the top 5 times -->
-        <!-- NOTE(Victoria): "?t=_s" or "?t=_m_s" -->
-        <thead>
-        </thead>
-        <tbody>
+    <div style="height: 500px; width: 400px; overflow: scroll;">
+        <table id="search-table" class="table table-hover table-bordered" style="margin-top: 100px">
+            <!-- NOTE(Victoria): Display the top 5 times -->
+            <!-- NOTE(Victoria): "?t=_s" or "?t=_m_s" -->
+            <thead>
+            </thead>
+            <tbody>
 
-        </tbody>
-    </table>
-    <!--</div>-->
-    </div>
-    </div>
+            </tbody>
+        </table>
+        <!--</div>-->
     </div>
 </header>
 
