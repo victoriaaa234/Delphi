@@ -39,7 +39,7 @@ def main(url, search_term):
     file_type = 'mp4'
     yt_id = url.rfind('=')
     yt_ID = url[yt_id+1:]
-    vid_path = MAIN_DIR + yt_ID + '/' + yt_ID + '.' + file_type
+    vid_path = MAIN_DIR + yt_ID + '/' + "results.csv"
     vid_file = Path(vid_path)
     print(vid_path)
     if vid_file.is_file():
