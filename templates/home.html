@@ -10,9 +10,19 @@
     <meta name="author" content="">
 
     <title>Delphi</title>
+    <!-- jQuery -->
+    <script src="{{ url_for('static',filename='lib/jquery/jquery.min.js') }}"></script>
 
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static',filename='lib/bootstrap/js/bootstrap.min.js') }}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js') }}"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="{{ url_for('static',filename='js/new-age.min.js') }}"></script>
     <!-- Bootstrap Core CSS -->
-    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static',filename='styles/style.css') }}" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -20,18 +30,17 @@
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
     <!-- Plugin CSS -->
-    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../lib/simple-line-icons/css/simple-line-icons.css">
-    <link rel="stylesheet" href="lib/device-mockups/device-mockups.min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='lib/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='lib/simple-line-icons/css/simple-line-icons.css') }}">
 
     <!-- Theme CSS -->
     <!-- <link href="css/new-age.min.css" rel="stylesheet"> -->
-    <link href="../css/new-age.css" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/new-age.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
 </head>
@@ -62,21 +71,53 @@
     </nav>
     <!-- change -->
     <header>
+    <script>
+        function addCell(vidtitle, vidid, row, a) {
+            var cell = row.insertCell(a);
+            console.log(vidid);
+            cell.innerHTML = '<a id="video-thumbnail" data-id=' + vidid + ' href="/oracle/' + vidid + '"><img src="https://i.ytimg.com/vi/' + vidid + '/hqdefault.jpg"/><br/>' + vidtitle + '</a>';
+        }
+        function sendData() {
+            var x = document.getElementById("myForm");
+            console.log(x.value);
+            $.ajax({
+                type: "POST",
+                url: "/getVideos",
+                data: {
+                    query: x.value,
+                }
+            }).done(function (o) {
+                rx = o;
+                console.log(rx);
+		var table = document.getElementById("search-table");
+		var row = table.insertRow(0);
+                for (a = 0; a < rx[0].length; a++) {
+                    addCell(rx[0][a], rx[1][a], row, a);
+                }
+            });
+        }
+    </script>
+
+
         <div class="container">
             <div class="row">
                 <div class="col-sm-7">
                     <div class="header-content">
                         <div class="header-content-search">
-                            <form class="navbar-form" role="search">
-                                <div class="input-group add-on">
-                                    <input class="form-control" placeholder="Enter a genre..." name="srch-term" id="srch-term" type="text">
-                                    <div class="input-group-btn">
-                                    <!-- NOTE(Victoria): Search YouTube for 5 videos and display them. When clicking on
-                                    one of these videos, it should go to the oracle.html page -->
-                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
+    <div class="input-group">
+        <input type="text" id="myForm" class="form-control" placeholder="Search for a YouTube video">
+        <span class="input-group-btn">
+            <button onclick="return sendData()" class="btn btn-secondary" type="button">Go!</button>
+        </span>
+    </div>
+    <table id="search-table" class="table table-hover table-bordered" style="margin-top: 100px">
+        <!-- NOTE(Victoria): Display the top 5 times -->
+        <!-- NOTE(Victoria): "?t=_s" or "?t=_m_s" -->
+        <tbody>
+
+        </tbody>
+    </table>
+
                         </div>
                     </div>
                 </div>
@@ -108,16 +149,16 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     <!-- Theme JavaScript -->
-    <script src="../js/new-age.min.js"></script>
+    <script src="js/new-age.min.js"></script>
 
 </body>
 
