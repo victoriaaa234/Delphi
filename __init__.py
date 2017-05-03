@@ -19,7 +19,7 @@ def about():
 @app.route('/oracle')
 @app.route('/oracle/<vidid>')
 def oracle(vidid=None):
-    return render_template('oracle.html', url=base+vidid, vidid=vidid, results=None)
+    return render_template('oracle.html', url=base+vidid, vidid=vidid)
 
 @app.route('/home')
 @app.route('/home/<query>')
