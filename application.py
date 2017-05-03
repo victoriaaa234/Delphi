@@ -1,38 +1,38 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-app = Flask(__name__)
+application = Flask(__name__)
 from main import main
 from flask import jsonify
 from search import youtube_search
 
 base = 'https://www.youtube.com/embed/'
 true_base = 'https://www.youtube.com/watch?v='
-@app.route('/')
+@application.route('/')
 def hello_world():
     return 'Hello World!'
 
-@app.route('/about')
+@application.route('/about')
 def about():
     return 'about us'
 
-@app.route('/oracle')
-@app.route('/oracle/<vidid>')
+@application.route('/oracle')
+@application.route('/oracle/<vidid>')
 def oracle(vidid=None):
     return render_template('oracle.html', url=base+vidid, vidid=vidid)
 
-@app.route('/home')
-@app.route('/home/<query>')
+@application.route('/home')
+@application.route('/home/<query>')
 def search(query=None):
     return render_template('home.html')
 
-@app.route('/getVideos', methods=['POST'])
+@application.route('/getVideos', methods=['POST'])
 def getVideos():
     query = request.form['query']
     titles, vidids = youtube_search(query);
     return jsonify([titles, vidids])
 
-@app.route('/getQuery', methods=['POST'])
+@application.route('/getQuery', methods=['POST'])
 def getQuery():
     data = request.form['data']
     url_ = true_base + request.form['vidid']
@@ -49,4 +49,4 @@ def getQuery():
 
 
 if __name__ == '__main__':
-    app.run()
+    application.run(host='0.0.0.0',port=8080,debug=True)

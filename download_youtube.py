@@ -3,7 +3,7 @@ import moviepy.editor as mp
 import os
 import os.path
 from pathlib import Path
-VID_DIR = '/Users/jusunglee/Work/TAMU/CSCE315/CSCE_315_TeamProject_3/Videos/'
+VID_DIR = 'usr/app/Videos/'
 MAIN_DIR = 'Videos/'
 
 
