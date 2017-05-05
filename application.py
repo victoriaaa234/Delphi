@@ -45,7 +45,6 @@ def getQuery():
         result.append(data)
     print(results_sorted)
     return jsonify(results_sorted)
-    # return render_template('oracle.html', url=base + vidid, vidid=vidid, results=results)
 
 
 if __name__ == '__main__':

@@ -3,8 +3,8 @@ import moviepy.editor as mp
 import os
 import os.path
 from pathlib import Path
-VID_DIR = 'usr/app/Videos/'
-MAIN_DIR = 'Videos/'
+MAIN_DIR = os.getcwd()
+VID_DIR = 'Videos/'
 
 
 def download_youtube_video(url):
@@ -17,8 +17,8 @@ def download_youtube_video(url):
     yt_ID = url[yt_ID_index + len(id_prec):]
     yt.set_filename(yt_ID)
     video = yt.get(file_type, vid_quality)
-    VID_DIR_X = VID_DIR + yt_ID
-    vid_path = MAIN_DIR + yt_ID + '/' + yt_ID + '.' + file_type
+    VID_DIR_X = MAIN_DIR + '/' + VID_DIR + yt_ID
+    vid_path = VID_DIR_X + '/' + yt_ID + '.' + file_type
     vid_file = Path(vid_path)
     if vid_file.is_file():
         print('Already downloaded! Skipping download.')

@@ -95,11 +95,11 @@ def main(url, search_term):
             for result in results:
                 file_.write('"' + str(result[0]) + ',' + str(result[1]) + '",')
             file_.write('\n')
-            i += 1
             first_col = [x[0] for x in results]
             if search_term.lower() in first_col:
                 index_ = first_col.index(search_term.lower())
-                results_list.append(index_, results[index_][1])
+                results_list.append([i, results[index_][1]])
+            i += 1
         print('dONE')
         return results_list
 
