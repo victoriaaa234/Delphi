@@ -1,0 +1,6 @@
+Flask==0.12.1
+clarifai==2.0.21
+numpy==1.12.1
+moviepy==0.2.3.2
+pytube==6.2.2
+google_api_python_client==1.6.2
