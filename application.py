@@ -1,28 +1,28 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-application = Flask(__name__)
+application = Flask(__name__, static_url_path='/static')
 from main import main
 from flask import jsonify
 from search import youtube_search
 
 base = 'https://www.youtube.com/embed/'
 true_base = 'https://www.youtube.com/watch?v='
-@application.route('/')
+@application.route('/', methods=['GET'])
 def hello_world():
-    return 'Hello World!'
+    return render_template('index.html')
 
-@application.route('/about')
+@application.route('/about', methods=['GET'])
 def about():
     return 'about us'
 
-@application.route('/oracle')
-@application.route('/oracle/<vidid>')
+@application.route('/oracle', methods=['GET'])
+@application.route('/oracle/<vidid>', methods=['GET'])
 def oracle(vidid=None):
     return render_template('oracle.html', url=base+vidid, vidid=vidid)
 
-@application.route('/home')
-@application.route('/home/<query>')
+@application.route('/home', methods=['GET'])
+@application.route('/home/<query>', methods=['GET'])
 def search(query=None):
     return render_template('home.html')
 
@@ -49,4 +49,5 @@ def getQuery():
 
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0',port=8080,debug=True)
+    application.debug = True
+    application.run()
