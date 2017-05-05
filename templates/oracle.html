@@ -54,196 +54,195 @@
 
 </head>
 
-<header>
-    <div class="container">
-        <!--<div class="col-sm-7">-->
-        <div id="content">
-            <!-- style="display: none" -->
+<body id="page-top">
 
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Delphi: The Oracle of YouTube</a>
+            </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <!--<div class="row">-->
+        <!-- /.container-fluid -->
+    </nav>
+    <header>
+        <script>
+            var player;
 
-        <div id="video"></div>
-
-        <script src="https://www.youtube.com/iframe_api"></script>
-
-    </div>
-    <script>
-        var player;
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('video', {
-                width: 600,
-                height: 400,
-                videoId: '{{vidid}}',
-                playerVars: {
-                    color: 'white',
-                },
-                events: {
-                    onReady: initialize
-                }
-            });
-            function initialize() {
-
-                // Update the controls on load
-                updateTimerDisplay();
-                updateProgressBar();
-
-                // Clear any old interval.
-                clearInterval(time_update_interval);
-
-                // Start interval to update elapsed time display and
-                // the elapsed part of the progress bar every second.
-                time_update_interval = setInterval(function () {
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('video', {
+                    width: 600,
+                    height: 400,
+                    videoId: '{{vidid}}',
+                    playerVars: {
+                        color: 'white',
+                    },
+                    events: {
+                        onReady: initialize
+                    }
+                });
+                function initialize() {
+    
+                    // Update the controls on load
                     updateTimerDisplay();
                     updateProgressBar();
-                }, 1000)
-
-            }
-
-
-        }
-        //        $(document).ready(function () {
-        //            $('#play-video').on('click', function (ev) {
-        //                $("#myVideo")[0].src += ("#t=" + )//"&autoplay=1";
-        //                ev.preventDefault();
-        //            });
-        //        });
-        //        document.body.onclick = function (e) {
-        //            console.log('smash');
-        //            e = window.event ? event.srcElement : e.target;
-        //            if (e.className && e.className.indexOf('time') != -1) alert(e.value);
-        //            else console.log('lemme smash' + e.value);
-        //        }
-        function clickTime(identifier) {
-            console.log($(identifier).data('id'));
-            player.seekTo($(identifier).data('id'));
-        }
-        function addRow(query, time, value, seconds) {
-            var table = document.getElementById("search-table");
-            var row = table.insertRow(0);
-            var cell0 = row.insertCell(0);
-            var cell1 = row.insertCell(1);
-            var cell2 = row.insertCell(2);
-            console.log(time);
-            cell0.innerHTML = query;
-            cell1.innerHTML = '<a id="play-video" data-id=' + seconds + ' onclick="clickTime(this);" href="#">' + time + '</a><br/>';
-            cell2.innerHTML = value;
-        }
-
-        function sendData() {
-            var x = document.getElementById("myForm");
-            console.log(x.value);
-            $.ajax({
-                type: "POST",
-                url: "/getQuery",
-                data: {
-                    data: x.value,
-                    vidid: '{{vidid}}'
+    
+                    // Clear any old interval.
+                    clearInterval(time_update_interval);
+    
+                    // Start interval to update elapsed time display and
+                    // the elapsed part of the progress bar every second.
+                    time_update_interval = setInterval(function () {
+                        updateTimerDisplay();
+                        updateProgressBar();
+                    }, 1000)
+    
                 }
-            }).done(function (o) {
-                rx = o;
-                console.log(rx);
+            }
+            function clickTime(identifier) {
+                console.log($(identifier).data('id'));
+                player.seekTo($(identifier).data('id'));
+            }
+            function addRow(query, time, value, seconds) {
                 var table = document.getElementById("search-table");
                 var row = table.insertRow(0);
                 var cell0 = row.insertCell(0);
                 var cell1 = row.insertCell(1);
                 var cell2 = row.insertCell(2);
-                for (a = 0; a < rx.length; a++) {
-                    var query_ = rx[a][2];
-                    var time__ = rx[a][0];
-                    var hours = Math.floor(time__ / 3600);
-                    var hours_;
-                    var minutes_;
-                    var seconds_;
-
-                    var minutes = Math.floor((time__ % 3600) / 60);
-                    var seconds = Math.floor(time__ % 3600 % 60);
-                    if (hours.toString().length == 1) {
-                        hours_ = "0" + hours.toString();
+                console.log(time);
+                cell0.innerHTML = query;
+                cell1.innerHTML = '<a id="play-video" data-id=' + seconds + ' onclick="clickTime(this);" href="#">' + time + '</a><br/>';
+                cell2.innerHTML = value;
+            }
+    
+            function sendData() {
+                var x = document.getElementById("myForm");
+                console.log(x.value);
+                $.ajax({
+                    type: "POST",
+                    url: "/getQuery",
+                    data: {
+                        data: x.value,
+                        vidid: '{{vidid}}'
                     }
-                    else {
-                        hours_ = hours.toString;
+                }).done(function (o) {
+                    rx = o;
+                    console.log(rx);
+                    var table = document.getElementById("search-table");
+                    var row = table.insertRow(0);
+                    var cell0 = row.insertCell(0);
+                    var cell1 = row.insertCell(1);
+                    var cell2 = row.insertCell(2);
+                    for (a = 0; a < rx.length; a++) {
+                        var query_ = rx[a][2];
+                        var time__ = rx[a][0];
+                        var hours = Math.floor(time__ / 3600);
+                        var hours_;
+                        var minutes_;
+                        var seconds_;
+    
+                        var minutes = Math.floor((time__ % 3600) / 60);
+                        var seconds = Math.floor(time__ % 3600 % 60);
+                        if (hours.toString().length == 1) {
+                            hours_ = "0" + hours.toString();
+                        }
+                        else {
+                            hours_ = hours.toString;
+                        }
+                        if (minutes.toString().length == 1) {
+                            minutes_ = "0" + minutes.toString();
+                        }
+                        else {
+                            minutes_ = minutes.toString();
+                        }
+                        if (seconds.toString().length == 1) {
+                            seconds_ = "0" + seconds.toString();
+                        }
+                        else {
+                            seconds_ = seconds.toString();
+                        }
+                        var time_ = hours_ + ":" + minutes_ + ":" + seconds_;
+                        var value_ = rx[a][1];
+                        addRow(query_, time_, value_, time__);
                     }
-                    if (minutes.toString().length == 1) {
 
-                        minutes_ = "0" + minutes.toString();
+                    var table = document.getElementById("search-table");
+                    var row1 = table.insertRow(0);
+                    var cell31 = row1.insertCell(0);
+                    var cell11 = row1.insertCell(1);
+                    var cell21 = row1.insertCell(2);
+                    cell11.innerHTML = "Time";
+                    cell21.innerHTML = "Probability";
+                    cell31.innerHTML = "Term";
+                });
+            }
+        </script>
+        <div class="container">
+        <div class="header-content">
+        <div class="header-content-inner">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div id="video"></div>
+                    <script src="https://www.youtube.com/iframe_api"></script>
+                </div>
 
-                    }
-                    else {
-                        minutes_ = minutes.toString();
-                    }
-                    if (seconds.toString().length == 1) {
-                        seconds_ = "0" + seconds.toString();
+                <div class="col-sm-5">
+                    <div class="input-group">
+                        <input type="text" id="myForm" class="form-control" value="" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button onclick="return sendData()" class="btn btn-secondary" type="button">Go!</button>
+                        </span>
+                    </div>
+                    <div style="height: 400px; width: 400px; overflow: auto;">
+                        <table id="search-table" class="table" style="margin-top: 100px">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </header>
 
-                    }
-                    else {
-                        seconds_ = seconds.toString();
-                    }
-                    var time_ = hours_ + ":" + minutes_ + ":" + seconds_;
-                    var value_ = rx[a][1];
-                    addRow(query_, time_, value_, time__);
+    <section id="contact" class="contact bg-primary">
+        <div class="container">
+            <h2>We <i class="fa fa-heart"></i> new friends!</h2>
+            <ul class="list-inline list-social">
+                <li class="social-twitter">
+                    <a target="_blank" href="https://twitter.com/delphioracle67"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li class="social-facebook">
+                    <a target="_blank" href="https://www.facebook.com/profile.php?id=100016731729937"><i
+                            class="fa fa-facebook"></i></a>
+                </li>
+                <li class="social-google-plus">
+                    <a target="_blank" href="https://plus.google.com/u/0/108074215956950222463"><i
+                            class="fa fa-google-plus"></i></a>
+                </li>
+            </ul>
+        </div>
+    </section>
 
-                }
-
-                var table = document.getElementById("search-table");
-                var row1 = table.insertRow(0);
-                var cell31 = row1.insertCell(0);
-                var cell11 = row1.insertCell(1);
-                var cell21 = row1.insertCell(2);
-                cell11.innerHTML = "Time";
-                cell21.innerHTML = "Probability";
-                cell31.innerHTML = "Term";
-
-            });
-        }
-    </script>
-    <div class="input-group">
-        <input type="text" id="myForm" class="form-control" value="" placeholder="Search for...">
-        <span class="input-group-btn">
-            <button onclick="return sendData()" class="btn btn-secondary" type="button">Go!</button>
-        </span>
-    </div>
-    <div style="height: 500px; width: 400px; overflow: scroll;">
-        <table id="search-table" class="table table-hover table-bordered" style="margin-top: 100px">
-            <!-- NOTE(Victoria): Display the top 5 times -->
-            <!-- NOTE(Victoria): "?t=_s" or "?t=_m_s" -->
-            <thead>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-        <!--</div>-->
-    </div>
-</header>
-
-<section id="contact" class="contact bg-primary">
-    <div class="container">
-        <h2>We <i class="fa fa-heart"></i> new friends!</h2>
-        <ul class="list-inline list-social">
-            <li class="social-twitter">
-                <a target="_blank" href="https://twitter.com/delphioracle67"><i class="fa fa-twitter"></i></a>
-            </li>
-            <li class="social-facebook">
-                <a target="_blank" href="https://www.facebook.com/profile.php?id=100016731729937"><i
-                        class="fa fa-facebook"></i></a>
-            </li>
-            <li class="social-google-plus">
-                <a target="_blank" href="https://plus.google.com/u/0/108074215956950222463"><i
-                        class="fa fa-google-plus"></i></a>
-            </li>
-        </ul>
-    </div>
-</section>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2016 Start Bootstrap. All Rights Reserved.</p>
-    </div>
-</footer>
-
+    <footer>
+        <div class="container">
+            <p>&copy; 2016 Start Bootstrap. All Rights Reserved.</p>
+        </div>
+    </footer>
 
 </body>
 
